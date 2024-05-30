@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 @EnableJpaRepositories
-public interface MessageRepository extends JpaRepository<Message, String> {
-    Optional<Message> findByContent(String content);
+public interface MessageRepository extends JpaRepository<Message, Long> {
+    Optional<Message> findById(Long id);
 }
