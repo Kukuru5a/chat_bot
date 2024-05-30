@@ -39,6 +39,16 @@ dependencies {
 	implementation("org.mapstruct:mapstruct:1.6.0.Beta1")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.0.Beta1")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	testImplementation("org.springframework.security:spring-security-test:6.0.2")
+	implementation("org.springframework.boot:spring-boot-configuration-processor")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.1.0")
+
+	implementation("io.jsonwebtoken:jjwt-api:0.11.2") // Add JJWT API dependency
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.2") // Add JJWT Implementation dependency
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+	implementation("org.slf4j:slf4j-api:1.7.32")
+	implementation("ch.qos.logback:logback-classic:1.2.6")
 	//faker and instancio + assertj
 	implementation("org.instancio:instancio-junit:3.6.0")
 	implementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")

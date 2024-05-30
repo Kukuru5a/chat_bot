@@ -6,19 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Repository
-@Builder
 @Table(name = "message")
-public class Message implements BaseEntity{
+@Builder
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, name = "content")
     private String content;
 }

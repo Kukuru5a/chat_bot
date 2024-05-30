@@ -1,74 +1,77 @@
 package org.example.vkBot;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.vkBot.dto.MessageCreateDTO;
-import org.example.vkBot.dto.MessageUpdateDTO;
 import org.example.vkBot.model.Message;
 import org.example.vkBot.repository.MessageRepository;
-import org.example.vkBot.util.EntityGenerator;
+import org.example.vkBot.util.TextGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class VkBotApplicationTests {
-	@Autowired
-	private MockMvc mockMvc;
-	@Autowired
-	private EntityGenerator entityGenerator;
-	@Autowired
-	private ObjectMapper om;
-	@Autowired
-	private MessageRepository messageRepository;
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private TextGenerator textGenerator;
+    @Autowired
+    private MessageRepository messageRepository;
 
-	@BeforeEach
-    public void setUp() {
-		var message = entityGenerator.generateMessage();
-		messageRepository.save(message);
+    private JwtRequestPostProcessor jwtRequestPostProcessor;
 
-	}
+    private Message message;
+
+    @BeforeEach
+    void setUp() {
+        message = textGenerator.generateMessage();
+        messageRepository.save(message);
+    }
 
     @AfterEach
-	public void clean() {
-		messageRepository.deleteAll();
-	}
+    void tearDown() {
+        messageRepository.deleteAll();
+    }
 
+    @Test
+    void createMessage() throws Exception {
+        var message = textGenerator.generateMessage();
+        var request = post("/bot")
+                .with(jwtRequestPostProcessor)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(message));
+        mockMvc.perform(request)
+                .andExpect(status().isCreated());
+    }
 
-	@Test
-	void createTest() throws Exception {
-		var message = entityGenerator.generateMessage();
-//		var message = Message.builder()
-//				.content("Расскажи как у тебя дела? Что нового? Почему ты мне не отвечаешь?")
-//				.build();
-		var data = new MessageCreateDTO();
-		data.setContent(message.getContent());
-
-
-		var request = post("/api/messages")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(om.writeValueAsString(data));
-		mockMvc.perform(request)
-				.andExpect(status().isCreated());
-	}
-
-	@Test
-	void updateTest() throws Exception {
-		var message = entityGenerator.generateMessage();
-		var data = new MessageUpdateDTO();
-		data.setContent(JsonNullable
-				.of("new contnent for the text. It may look as far as I want it. Pickle Rick!)"));
-
-	}
+    @Test
+    void getMessage() throws Exception {
+        var request = get("/bot/" + message.getId());
+//                .with(jwtRequestPostProcessor);
+        var response = mockMvc.perform(request).andExpect(status().isOk()).andReturn();
+        var body = response.getResponse().getContentAsString();
+        assertThatJson(body).and(
+                a -> a.node("id").isEqualTo(message.getId()),
+                a -> a.node("content").isEqualTo(message.getContent())
+        );
+    }
 
 }
