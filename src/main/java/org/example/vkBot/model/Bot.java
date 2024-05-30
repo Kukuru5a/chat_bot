@@ -2,24 +2,19 @@ package org.example.vkBot.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "message")
-@Builder
-public class Message {
+@Data
+@Table(name = "bots")
+public class Bot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "content", nullable = false)
-    private String content;
-
-    @ManyToOne()
-    private Bot bot;
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
 }

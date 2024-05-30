@@ -26,24 +26,30 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("org.postgresql:postgresql")
-	annotationProcessor("org.projectlombok:lombok")
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.projectlombok:lombok:1.18.26")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-configuration-processor")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
-
 	implementation("org.mapstruct:mapstruct:1.6.0.Beta1")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.0.Beta1")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	//faker and instancio + assertj
 	implementation("org.instancio:instancio-junit:3.6.0")
 	implementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
 	implementation("net.datafaker:datafaker:2.0.2")
-
+	runtimeOnly("com.h2database:h2:2.2.224")
+	implementation("net.datafaker:datafaker:2.0.1")
+	implementation("org.instancio:instancio-junit:3.3.0")
+	implementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
+	testImplementation("org.springframework.security:spring-security-test:6.0.2")
+	testImplementation(platform("org.junit:junit-bom:5.10.0"))
+	testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+	testCompileOnly("org.projectlombok:lombok:1.18.30")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
+	implementation("com.zaxxer:HikariCP:5.0.1")
 }
 
 tasks.withType<Test> {
