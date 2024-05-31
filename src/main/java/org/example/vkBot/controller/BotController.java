@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Map;
 
-import static org.example.vkBot.config.Config.CONFIRMATION_TOKEN;
 
 @RestController
 @RequestMapping
