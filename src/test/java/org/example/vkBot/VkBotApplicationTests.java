@@ -58,3 +58,5 @@ class VkBotApplicationTests {
 	}
 
 }
+
+// Token: vk1.a.6mS-qVSLmKsdGt0wPt1BIfoK3u8XGXyNbZYxZ-i3LKC-vs3nA_Vo5wH0jZsLhAjsgP8AxB8aXOGEqTWqhq-dAwaEcNgIx_SKzqVxFqaErvBEY4WL2Abm_vFcyZeXEiwRFnct-OyPfvIsif5n27qoAMPomYdCDz3SRkApNCjPzg2onPvE2ejuP0Gek5ZkE-NHIurfWIpbQghwTgFsZe4voA
