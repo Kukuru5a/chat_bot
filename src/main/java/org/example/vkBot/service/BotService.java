@@ -1,6 +1,7 @@
 package org.example.vkBot.service;
 
 import org.example.vkBot.model.Bot;
+import org.example.vkBot.model.Message;
 import org.example.vkBot.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,20 @@ import java.util.Map;
 @Service
 public class BotService {
     @Autowired
-    private MessageRepository repository; // ?
+    private MessageRepository repository;
 
-    private Map<Long, String> messages = new HashMap<>();
+    public final Map<Long, String> messages = new HashMap<>();
 
     public void receiveMessage(long userId, String message) {
-        messages.put(userId, message);
+        String mes;
+//                repository.findByUserId(userId).isPresent() ? repository.findByUserId(userId).get()
+//                .getContent() : null;
+        if (repository.findByContent(message).isPresent()) {
+            mes = message;
+        } else {
+            mes = message;
+        }
+        messages.put(userId, mes);
     }
 
     public String quotTheMessage(Long userId) {

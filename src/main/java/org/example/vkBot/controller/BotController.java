@@ -30,33 +30,6 @@ public class BotController {
     }
 
 
-    @PostMapping("/")
-    public String handleCallback(@RequestBody Map<String, Object> payload) throws IOException {
-        // Проверяем, есть ли поле "type"
-        if (payload.containsKey("type")) {
-            String type = (String) payload.get("type");
-
-            // Если это уведомление для подтверждения сервера
-            if ("confirmation".equals(type)) {
-                return CONFIRMATION_TOKEN;
-            }
-
-            // Если это новое сообщение
-            else if ("message_new".equals(type)) {
-                Map<String, Object> object = (Map<String, Object>) payload.get("object");
-                Integer userId = (Integer) object.get("from_id");
-                String userName = userService.getUserName(userId);
-
-                // Отправляем ответное сообщение
-                String message = String.format("Hello, %s!", userName);
-                userService.sendMessage(userId, message);
-
-                // Возвращаем "ok" серверу Callback API
-                return "ok";
-            }
-        }
-        return "ok";
-    }
 
     @PostMapping("/quote")
     String quotMessage(@RequestBody Map<String, Object> payload) {
@@ -65,3 +38,26 @@ public class BotController {
     }
 
 }
+//    @PostMapping("pull")
+//    public String handleCallback(@RequestBody Map<String, Object> payload) throws IOException {
+//        if (payload.containsKey("type")) {
+//            String type = (String) payload.get("type");
+//
+//            if ("confirmation".equals(type)) {
+//                return CONFIRMATION_TOKEN;
+//            }
+//
+//            // Если это новое сообщение
+//            else if ("message_new".equals(type)) {
+//                Map<String, Object> object = (Map<String, Object>) payload.get("object");
+//                Integer userId = (Integer) object.get("from_id");
+//                String userName = userService.getUserName(userId);
+//
+//                String message = String.format("Hello, %s!", userName);
+//                userService.sendMessage(userId, message);
+//
+//                return "ok";
+//            }
+//        }
+//        return "ok";
+//    }
