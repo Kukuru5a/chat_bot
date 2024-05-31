@@ -12,12 +12,7 @@ import java.io.*;
 import java.net.InetSocketAddress;
 
 public class SimpleBotServer {
-    public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/parse", new ParseHandler());
-        server.setExecutor(null); // creates a default executor
-        server.start();
-    }
+
 
     static class ParseHandler implements HttpHandler {
         @Override

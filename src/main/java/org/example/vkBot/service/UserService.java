@@ -10,9 +10,15 @@ import java.net.URL;
 
 @Service
 public class UserService {
+    @Autowired
+    private final Config config;
+
+    public UserService(Config config) {
+        this.config = config;
+    }
 
     public String getUserName(Integer userId) throws IOException {
-        URL url = new URL("https://api.vk.com/method/users.get?user_ids=" + userId + "&access_token=" + Config.ACCESS_TOKEN + "&v=5.103");
+        URL url = new URL("https://api.vk.com/method/users.get?user_ids=" + userId + "&access_token=" + config.getToken() + "&v=5.103");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         int responseCode = connection.getResponseCode();
@@ -32,12 +38,11 @@ public class UserService {
         }
     }
     public void sendMessage(Integer userId, String message) throws IOException {
-        URL url = new URL("https://api.vk.com/method/messages.send?peer_id=" + userId + "&message=" + message + "&access_token=" + Config.ACCESS_TOKEN + "&v=5.103");
+        URL url = new URL("https://api.vk.com/method/messages.send?peer_id=" + userId + "&message=" + message + "&access_token=" + config.getToken() + "&v=5.103");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            // Сообщение успешно отправлено
         }
     }
 }

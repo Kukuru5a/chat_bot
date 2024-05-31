@@ -10,9 +10,13 @@ import java.util.Map;
 @Service
 public class BotService {
     @Autowired
-    private MessageRepository repository;
+    private final MessageRepository repository;
 
     public final Map<Long, String> messages = new HashMap<>();
+
+    public BotService(MessageRepository repository) {
+        this.repository = repository;
+    }
 
     public void receiveMessage(long userId, String message) {
         String mes;

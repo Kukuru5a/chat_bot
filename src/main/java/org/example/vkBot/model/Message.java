@@ -17,9 +17,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "content", nullable = false)
+    @Column(nullable = false)
     private String content;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     private Bot bot;
 }
