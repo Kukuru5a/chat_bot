@@ -50,6 +50,8 @@ dependencies {
 	testCompileOnly("org.projectlombok:lombok:1.18.30")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 	implementation("com.zaxxer:HikariCP:5.0.1")
+	// https://mvnrepository.com/artifact/org.jsoup/jsoup
+	implementation("org.jsoup:jsoup:1.17.2")
 
 
 }

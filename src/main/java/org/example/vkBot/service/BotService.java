@@ -3,9 +3,14 @@ package org.example.vkBot.service;
 import org.example.vkBot.model.Bot;
 import org.example.vkBot.model.Message;
 import org.example.vkBot.repository.MessageRepository;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +23,6 @@ public class BotService {
 
     public void receiveMessage(long userId, String message) {
         String mes;
-//                repository.findByUserId(userId).isPresent() ? repository.findByUserId(userId).get()
-//                .getContent() : null;
         if (repository.findByContent(message).isPresent()) {
             mes = message;
         } else {
@@ -27,6 +30,7 @@ public class BotService {
         }
         messages.put(userId, mes);
     }
+
 
     public String quotTheMessage(Long userId) {
         String lastMessage = messages.get(userId);
