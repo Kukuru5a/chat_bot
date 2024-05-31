@@ -52,7 +52,7 @@ dependencies {
 	implementation("com.zaxxer:HikariCP:5.0.1")
 	// https://mvnrepository.com/artifact/org.jsoup/jsoup
 	implementation("org.jsoup:jsoup:1.17.2")
-
+	implementation("gg.jte:jte:3.0.1")
 
 }
 
