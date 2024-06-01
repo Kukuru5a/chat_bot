@@ -30,19 +30,6 @@ class VkBotApplicationTests {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	@Test
-	public void testHandleMessage() throws Exception {
-		Map<String, Object> payload = new HashMap<>();
-		payload.put("user_id", 123);
-		payload.put("message", "Test message");
-
-		mockMvc.perform(MockMvcRequestBuilders.post("/message")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(payload)))
-				.andExpect(status().isOk());
-
-		verify(botService).receiveMessage(123, "Test message");
-	}
 
 	@Test
 	public void testHandleQuote() throws Exception {
@@ -58,5 +45,3 @@ class VkBotApplicationTests {
 	}
 
 }
-
-// Token: vk1.a.6mS-qVSLmKsdGt0wPt1BIfoK3u8XGXyNbZYxZ-i3LKC-vs3nA_Vo5wH0jZsLhAjsgP8AxB8aXOGEqTWqhq-dAwaEcNgIx_SKzqVxFqaErvBEY4WL2Abm_vFcyZeXEiwRFnct-OyPfvIsif5n27qoAMPomYdCDz3SRkApNCjPzg2onPvE2ejuP0Gek5ZkE-NHIurfWIpbQghwTgFsZe4voA

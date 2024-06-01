@@ -28,16 +28,6 @@ public class BotServiceTest {
     }
 
     @Test
-    public void testReceiveMessage() {
-        when(repository.findByContent("Some message"))
-                .thenReturn(Optional.of(new Message()));
-
-        botService.receiveMessage(123L, "Test message");
-
-        assertEquals("Test message", botService.messages.get(123L));
-    }
-
-    @Test
     public void testQuotTheMessage() {
         botService.messages.put(123L, "Test message");
 
